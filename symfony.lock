@@ -224,6 +224,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.22.1"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.4"
     },
