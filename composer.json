@@ -21,6 +21,7 @@
         "tightenco/collect": "^8.19"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/maker-bundle": "^1.30"
     },
     "config": {
