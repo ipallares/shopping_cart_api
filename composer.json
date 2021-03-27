@@ -18,7 +18,8 @@
         "symfony/polyfill-uuid": "^1.22",
         "symfony/proxy-manager-bridge": "5.2.*",
         "symfony/yaml": "5.2.*",
-        "tightenco/collect": "^8.19"
+        "tightenco/collect": "^8.19",
+        "ext-json": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
