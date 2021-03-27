@@ -73,4 +73,12 @@ class AppFixtures extends Fixture
 
         return $product;
     }
+
+    public function getCartProductReference($name): CartProductDE
+    {
+        /** @var CartProductDE $cartProduct */
+        $cartProduct = parent::getReference($name);
+
+        return $cartProduct;
+    }
 }
