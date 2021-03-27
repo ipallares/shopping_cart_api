@@ -13,32 +13,40 @@ class AppFixtures extends Fixture
 {
     public const CART_REFERENCE = 'cart';
 
+    public const CART_PRODUCT1_REFERENCE = 'cartProduct1';
+    public const CART_PRODUCT2_REFERENCE = 'cartProduct2';
+
+    public const PRODUCT1_REFERENCE = 'product1';
+    public const PRODUCT2_REFERENCE = 'product2';
+    public const PRODUCT3_REFERENCE = 'product3';
+    public const PRODUCT4_REFERENCE = 'product4';
+
     public function load(ObjectManager $manager)
     {
         $this->setReferenceRepository(new ReferenceRepository($manager));
 
         $product1 = new ProductDE('Product1', 1199, 200);
-        $this->addReference('product1', $product1);
+        $this->addReference(self::PRODUCT1_REFERENCE, $product1);
         $manager->persist($product1);
 
         $product2 = new ProductDE('Product2', 2499, 10);
-        $this->addReference('product2', $product2);
+        $this->addReference(self::PRODUCT2_REFERENCE, $product2);
         $manager->persist($product2);
 
         $product3 = new ProductDE('Product3', 1599, 25);
-        $this->addReference('product3', $product3);
+        $this->addReference(self::PRODUCT3_REFERENCE, $product3);
         $manager->persist($product3);
 
         $product4 = new ProductDE('Product4', 1999, 9);
-        $this->addReference('product4', $product4);
+        $this->addReference(self::PRODUCT4_REFERENCE, $product4);
         $manager->persist($product4);
 
         $cartProduct1 = new CartProductDE(1, $product1);
-        $this->addReference('cartProduct1', $cartProduct1);
+        $this->addReference(self::CART_PRODUCT1_REFERENCE, $cartProduct1);
         $manager->persist($cartProduct1);
 
         $cartProduct2 = new CartProductDE(1, $product2);
-        $this->addReference('cartProduct2', $cartProduct2);
+        $this->addReference(self::CART_PRODUCT2_REFERENCE, $cartProduct2);
         $manager->persist($cartProduct2);
 
         $cart = new CartDE();
