@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=CartRepository::class)
  * @ORM\Table(name="cart")
  */
-class CartDE
+class Cart
 {
     /**
      * @ORM\Id
@@ -35,8 +35,8 @@ class CartDE
     private DateTimeInterface $lastModified;
 
     /**
-     * @ORM\OneToMany(targetEntity=CartProductDE::class, mappedBy="cart", orphanRemoval=true)
-     * @var Collection<int, CartProductDE>
+     * @ORM\OneToMany(targetEntity=CartProductDE::class, mappedBy="cart", orphanRemoval=true, cascade={"persist"})
+     * @var Collection<int, CartProduct>
      */
     private Collection $cartProducts;
 
@@ -77,7 +77,7 @@ class CartDE
     }
 
     /**
-     * @return Collection|CartProductDE[]
+     * @return Collection|CartProduct[]
      */
     public function getCartProducts(): Collection
     {
@@ -96,24 +96,18 @@ class CartDE
         return $this;
     }
 
-    public function addCartProduct(CartProductDE $cartProduct): self
+    public function addCartProduct(CartProduct $cartProduct): self
     {
         if (!$this->cartProducts->contains($cartProduct)) {
             $this->cartProducts[] = $cartProduct;
-            $cartProduct->setCart($this);
         }
 
         return $this;
     }
 
-    public function removeCartProduct(CartProductDE $cartProduct): self
+    public function removeCartProduct(CartProduct $cartProduct): self
     {
-        if ($this->cartProducts->removeElement($cartProduct)) {
-            // set the owning side to null (unless already changed)
-            if ($cartProduct->getCart() === $this) {
-                $cartProduct->setCart(null);
-            }
-        }
+        $this->cartProducts->removeElement($cartProduct);
 
         return $this;
     }

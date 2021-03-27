@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=CartProductRepository::class)
  * @ORM\Table(name="cart_product")
  */
-class CartProductDE
+class CartProduct
 {
     /**
      * @ORM\Id
@@ -29,15 +29,15 @@ class CartProductDE
      * @ORM\ManyToOne(targetEntity=CartDE::class, inversedBy="cartProducts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private CartDE $cart;
+    private Cart $cart;
 
     /**
      * @ORM\ManyToOne(targetEntity=ProductDE::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private ProductDE $product;
+    private Product $product;
 
-    public function __construct(int $quantity, CartDE $cart, ProductDE $product)
+    public function __construct(int $quantity, Cart $cart, Product $product)
     {
         $this->quantity = $quantity;
         $this->cart = $cart;
@@ -68,24 +68,24 @@ class CartProductDE
         return $this;
     }
 
-    public function getCart(): ?CartDE
+    public function getCart(): ?Cart
     {
         return $this->cart;
     }
 
-    public function setCart(?CartDE $cart): self
+    public function setCart(?Cart $cart): self
     {
         $this->cart = $cart;
 
         return $this;
     }
 
-    public function getProduct(): ?ProductDE
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(?ProductDE $product): self
+    public function setProduct(?Product $product): self
     {
         $this->product = $product;
 
