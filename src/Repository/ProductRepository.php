@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\CartProductDE;
+use App\Entity\ProductDE;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method CartProductDE|null find($id, $lockMode = null, $lockVersion = null)
- * @method CartProductDE|null findOneBy(array $criteria, array $orderBy = null)
- * @method CartProductDE[]    findAll()
- * @method CartProductDE[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ProductDE|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProductDE|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProductDE[]    findAll()
+ * @method ProductDE[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ProductRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CartProductDE::class);
+        parent::__construct($registry, ProductDE::class);
     }
 }
