@@ -52,6 +52,13 @@ class CartDE
         return $this->id;
     }
 
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getCreationDate(): ?DateTimeInterface
     {
         return $this->creationDate;
