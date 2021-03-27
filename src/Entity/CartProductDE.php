@@ -72,6 +72,11 @@ class CartProductDE
         return $this;
     }
 
+    public function getProductId(): string
+    {
+        return $this->getProduct()->getId();
+    }
+
     public function getProductName(): string
     {
         return $this->getProduct()->getName();
