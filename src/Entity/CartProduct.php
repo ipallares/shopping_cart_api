@@ -92,6 +92,11 @@ class CartProduct
         return $this;
     }
 
+    public function getProductId(): string
+    {
+        return $this->getProduct()->getId();
+    }
+
     public function getProductName(): string
     {
         return $this->getProduct()->getName();
@@ -105,5 +110,10 @@ class CartProduct
     public function getProductStock(): int
     {
         return $this->getProduct()->getStock();
+    }
+
+    public function getCartProductPrice(): int
+    {
+        return $this->quantity*$this->getProductPrice();
     }
 }
