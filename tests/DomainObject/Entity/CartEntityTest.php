@@ -7,10 +7,10 @@ namespace App\Tests\DomainObject\Entity;
 use App\DomainObject\Entity\CartEntity;
 use DateTime;
 use InvalidArgumentException;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 use Tightenco\Collect\Support\Collection;
 
-class CartEntityTest extends KernelTestCase
+class CartEntityTest extends TestCase
 {
     public function testValidData(): void
     {

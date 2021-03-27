@@ -6,9 +6,9 @@ namespace App\Tests\DomainObject\Entity;
 
 use App\DomainObject\Entity\ProductEntity;
 use InvalidArgumentException;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class ProductEntityTest extends KernelTestCase
+class ProductEntityTest extends TestCase
 {
     public function testValidData(): void
     {

@@ -6,9 +6,9 @@ namespace App\Tests\DomainObject\ValueObject;
 
 use App\DomainObject\ValueObject\CartProductVO;
 use InvalidArgumentException;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class CartProductVoTest extends KernelTestCase
+class CartProductVoTest extends TestCase
 {
     public function testValidData(): void
     {

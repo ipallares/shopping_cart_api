@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\DomainObject\ValueObject;
 
 use App\DomainObject\ValueObject\UuidVO;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class UuidVoTest extends KernelTestCase
+class UuidVoTest extends TestCase
 {
     public function testValidUuid(): void
     {
