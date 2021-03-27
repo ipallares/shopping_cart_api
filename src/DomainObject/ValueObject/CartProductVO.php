@@ -11,6 +11,7 @@ class CartProductVO
     private int $quantity;
     private string $productName;
     private int $productPrice;
+    private int $productStock;
     private UuidVO $productId;
 
     public function __construct(
@@ -29,6 +30,7 @@ class CartProductVO
         $this->quantity = $quantity;
         $this->productName = $productName;
         $this->productPrice = $productPrice;
+        $this->productStock = $productStock;
         $this->productId = new UuidVO($productId);
     }
 
@@ -45,6 +47,11 @@ class CartProductVO
     public function getProductPrice(): float
     {
         return $this->productPrice;
+    }
+
+    public function getProductStock(): int
+    {
+        return $this->productStock;
     }
 
     public function getCartProductPrice(): float {
