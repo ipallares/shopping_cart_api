@@ -35,7 +35,7 @@ class Cart
     private DateTimeInterface $lastModified;
 
     /**
-     * @ORM\OneToMany(targetEntity=CartProductDE::class, mappedBy="cart", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=CartProduct::class, mappedBy="cart", orphanRemoval=true, cascade={"persist"})
      * @var Collection<int, CartProduct>
      */
     private Collection $cartProducts;

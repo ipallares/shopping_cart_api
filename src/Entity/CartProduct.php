@@ -26,13 +26,13 @@ class CartProduct
     private int $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CartDE::class, inversedBy="cartProducts")
+     * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="cartProducts")
      * @ORM\JoinColumn(nullable=false)
      */
     private Cart $cart;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ProductDE::class)
+     * @ORM\ManyToOne(targetEntity=Product::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private Product $product;
