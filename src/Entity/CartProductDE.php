@@ -26,21 +26,13 @@ class CartProductDE
     private int $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CartDE::class, inversedBy="cartProducts")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private CartDE $cart;
-
-    /**
      * @ORM\ManyToOne(targetEntity=ProductDE::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private ProductDE $product;
 
-    public function __construct(int $quantity, CartDE $cart, ProductDE $product)
-    {
+    public function __construct(int $quantity, ProductDE $product) {
         $this->quantity = $quantity;
-        $this->cart = $cart;
         $this->product = $product;
     }
 
@@ -64,18 +56,6 @@ class CartProductDE
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getCart(): ?CartDE
-    {
-        return $this->cart;
-    }
-
-    public function setCart(?CartDE $cart): self
-    {
-        $this->cart = $cart;
 
         return $this;
     }

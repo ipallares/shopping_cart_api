@@ -11,7 +11,6 @@ class CartProductVO
     private int $quantity;
     private string $productName;
     private int $productPrice;
-    private UuidVO $cartId;
     private UuidVO $productId;
 
     public function __construct(
@@ -19,7 +18,6 @@ class CartProductVO
         string $productName,
         int $productPrice,
         int $productStock,
-        string $cartId,
         string $productId
     ) {
         $this->validateQuantityBiggerThanZero($quantity);
@@ -31,7 +29,6 @@ class CartProductVO
         $this->quantity = $quantity;
         $this->productName = $productName;
         $this->productPrice = $productPrice;
-        $this->cartId = new UuidVO($cartId);
         $this->productId = new UuidVO($productId);
     }
 
@@ -52,11 +49,6 @@ class CartProductVO
 
     public function getCartProductPrice(): float {
         return $this->productPrice * $this->quantity;
-    }
-
-    public function getCartId(): string
-    {
-        return $this->cartId->getId();
     }
 
     public function getProductId(): string

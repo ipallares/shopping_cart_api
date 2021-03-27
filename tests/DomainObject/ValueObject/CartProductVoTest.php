@@ -16,7 +16,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $cartProductVO = new CartProductVO(
@@ -24,7 +23,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
 
@@ -32,7 +30,6 @@ class CartProductVoTest extends TestCase
         $this->assertEquals($quantity*$productPrice, $cartProductVO->getCartProductPrice());
         $this->assertEquals($productName, $cartProductVO->getProductName());
         $this->assertEquals($productPrice, $cartProductVO->getProductPrice());
-        $this->assertEquals($cartId, $cartProductVO->getCartId());
         $this->assertEquals($productId, $cartProductVO->getProductId());
     }
 
@@ -42,7 +39,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -52,7 +48,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -63,7 +58,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -73,7 +67,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -84,7 +77,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -94,7 +86,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -105,7 +96,6 @@ class CartProductVoTest extends TestCase
         $productName = '';
         $productPrice = 1199;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -115,7 +105,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -126,7 +115,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 0;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -136,7 +124,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -147,7 +134,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = -1;
         $productStock = 1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -157,7 +143,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -168,7 +153,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = 0;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -178,7 +162,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -189,7 +172,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = -1;
-        $cartId = uuid_create();
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -199,7 +181,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -210,7 +191,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = -1;
-        $cartId = 'invalid-uuid';
         $productId = uuid_create();
 
         $this->expectException(InvalidArgumentException::class);
@@ -220,7 +200,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }
@@ -231,7 +210,6 @@ class CartProductVoTest extends TestCase
         $productName = 'productName';
         $productPrice = 1199;
         $productStock = -1;
-        $cartId = uuid_create();
         $productId = 'invalid-uuid';
 
         $this->expectException(InvalidArgumentException::class);
@@ -241,7 +219,6 @@ class CartProductVoTest extends TestCase
             $productName,
             $productPrice,
             $productStock,
-            $cartId,
             $productId
         );
     }

@@ -17,11 +17,10 @@ class CartProductEntity extends CartProductVO
         string $productName,
         int $productPrice,
         int $productStock,
-        string $cartId,
         string $productId
     ) {
         $this->id = new UuidVO($id);
-        parent::__construct($quantity, $productName, $productPrice, $productStock, $cartId, $productId);
+        parent::__construct($quantity, $productName, $productPrice, $productStock, $productId);
     }
 
     public function getId(): string
