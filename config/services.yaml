@@ -43,3 +43,6 @@ services:
     App\Logic\Validator\JsonSchemaValidator:
         public: true
 
+    App\Logic\Validator\InputValidator:
+        public: true
+
