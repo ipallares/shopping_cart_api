@@ -20,7 +20,7 @@ class JsonSchemaValidatorTest extends KernelTestCase
         parent::setUp();
         self::bootKernel();
         $this->validator = self::$kernel->getContainer()->get(JsonSchemaValidator::class);
-        $this->schemaPath = self::$kernel->getContainer()->getParameter('cart_api_path');
+        $this->schemaPath = self::$kernel->getContainer()->getParameter('cart_api_path_v1');
     }
 
     public function testValidJson(): void
@@ -135,7 +135,7 @@ class JsonSchemaValidatorTest extends KernelTestCase
 
     private function getInputJsonString(): string
     {
-        return file_get_contents('tests/Logic/Validator/json-examples/valid-cart-api-example.json');
+        return file_get_contents('tests/Logic/Validator/json-examples/valid-cart-api-example-v1.json');
     }
 
     private function getInputJsonObject(): object
