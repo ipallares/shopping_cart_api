@@ -57,3 +57,8 @@ services:
 
     App\UseCase\CartGetter:
         public: true
+
+    App\UseCase\CartProduct\CartProductDeleter:
+        public: true
+
+
