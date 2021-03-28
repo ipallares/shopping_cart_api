@@ -61,4 +61,7 @@ services:
     App\UseCase\CartProduct\CartProductDeleter:
         public: true
 
+    App\UseCase\CartProduct\CartProductCreator:
+        public: true
+
 
