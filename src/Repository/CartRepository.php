@@ -38,6 +38,11 @@ class CartRepository extends ServiceEntityRepository
         return $cart;
     }
 
+    /**
+     * @param string $id
+     *
+     * @return Cart
+     */
     public function findWithCertainty(string $id): Cart
     {
         $cart = $this->find($id);
