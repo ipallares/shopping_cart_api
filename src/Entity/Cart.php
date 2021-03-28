@@ -111,4 +111,19 @@ class Cart
 
         return $this;
     }
+
+    public function getCartPrice(): int
+    {
+        $result = 0;
+        foreach($this->cartProducts as $cartProduct) {
+            $result += $cartProduct->getCartProductPrice();
+        }
+
+        return $result;
+    }
+
+    public function getNumberOfProducts(): int
+    {
+        return $this->cartProducts->count();
+    }
 }
