@@ -8,6 +8,7 @@ use App\Entity\Cart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * @method Cart|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,6 +34,16 @@ class CartRepository extends ServiceEntityRepository
     {
         $this->_em->persist($cart);
         $this->_em->flush();
+
+        return $cart;
+    }
+
+    public function findWithCertainty(string $id): Cart
+    {
+        $cart = $this->find($id);
+        if (null === $cart) {
+            throw new ResourceNotFoundException("No Cart with id: $id");
+        }
 
         return $cart;
     }
