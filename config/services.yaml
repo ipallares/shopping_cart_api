@@ -54,3 +54,6 @@ services:
 
     App\Logic\Validator\UpdateCartValidator:
         public: true
+
+    App\UseCase\CartGetter:
+        public: true
