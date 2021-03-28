@@ -6,7 +6,7 @@ namespace App\UseCase;
 
 use App\Logic\Converter\CartEntityToJson;
 use App\Logic\Converter\JsonToCartEntity;
-use App\Logic\Validator\InputValidator;
+use App\Logic\Validator\CreateCartValidator;
 use App\Repository\CartRepository;
 use Doctrine\ORM\ORMException;
 use Exception;
@@ -17,13 +17,13 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class CartCreator
 {
     private CartRepository $cartRepository;
-    private InputValidator $inputValidator;
+    private CreateCartValidator $inputValidator;
     private JsonToCartEntity $jsonToCartEntity;
     private CartEntityToJson $cartEntityToJson;
 
     public function __construct(
         CartRepository $cartRepository,
-        InputValidator $inputValidator,
+        CreateCartValidator $inputValidator,
         JsonToCartEntity $jsonToCartEntity,
         CartEntityToJson $cartEntityToJson)
     {

@@ -10,7 +10,7 @@ use Exception;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-class InputValidator
+class CreateCartValidator
 {
     public string $inputSchema;
     public JsonSchemaValidator $jsonSchemaValidator;

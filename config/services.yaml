@@ -43,7 +43,7 @@ services:
     App\Logic\Validator\JsonSchemaValidator:
         public: true
 
-    App\Logic\Validator\InputValidator:
+    App\Logic\Validator\CreateCartValidator:
         public: true
 
     App\UseCase\CartCreator:

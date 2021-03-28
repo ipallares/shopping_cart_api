@@ -6,7 +6,7 @@ namespace App\Tests\Logic\Validator;
 
 use App\DataFixtures\AppFixtures;
 use App\Logic\Converter\CartEntityToJson;
-use App\Logic\Validator\InputValidator;
+use App\Logic\Validator\CreateCartValidator;
 use App\Repository\ProductRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,13 +16,13 @@ use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-class InputValidatorTest extends KernelTestCase
+class CreateCartValidatorTest extends KernelTestCase
 {
     use FixturesTrait;
 
     private AppFixtures $fixtures;
     private EntityManagerInterface $manager;
-    private InputValidator $inputValidator;
+    private CreateCartValidator $inputValidator;
     private CartEntityToJson $cartEntityToJson;
     private ProductRepository $productRepository;
 
@@ -32,7 +32,7 @@ class InputValidatorTest extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
-        $this->inputValidator = self::$container->get(InputValidator::class);
+        $this->inputValidator = self::$container->get(CreateCartValidator::class);
         $this->cartEntityToJson = self::$container->get(CartEntityToJson::class);
         $this->productRepository = self::$container->get(ProductRepository::class);
         $this->manager = self::$container->get('doctrine.orm.entity_manager');
