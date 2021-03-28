@@ -43,8 +43,8 @@ class Cart
     public function __construct()
     {
         $this->cartProducts = new ArrayCollection();
-        $this->creationDate = new DateTime();
-        $this->lastModified = new DateTime();
+        $this->creationDate = new DateTime('now');
+        $this->lastModified = new DateTime('now');
     }
 
     public function getId(): ?string
