@@ -6,8 +6,10 @@ namespace App\Repository;
 
 use App\Entity\CartProduct;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * @method CartProduct|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,6 +35,33 @@ class CartProductRepository extends ServiceEntityRepository
     {
         $this->_em->persist($cartProduct);
         $this->_em->flush();
+
+        return $cartProduct;
+    }
+
+    /**
+     * @param CartProduct $cartProduct
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(CartProduct $cartProduct): void
+    {
+        $this->_em->remove($cartProduct);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return CartProduct
+     */
+    public function findWithCertainty(string $id): CartProduct
+    {
+        $cartProduct = $this->find($id);
+        if (null === $cartProduct) {
+            throw new ResourceNotFoundException("No CartProduct with id: $id");
+        }
 
         return $cartProduct;
     }
