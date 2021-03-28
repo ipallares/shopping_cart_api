@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Logic\Validator;
 
 use App\DataFixtures\AppFixtures;
+use App\Entity\Product;
 use App\Logic\Converter\CartEntityToJson;
 use App\Logic\Validator\CreateCartValidator;
 use App\Repository\ProductRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -25,7 +26,6 @@ class CreateCartValidatorTest extends KernelTestCase
     private CreateCartValidator $inputValidator;
     private CartEntityToJson $cartEntityToJson;
     private ProductRepository $productRepository;
-
 
     public function setUp(): void
     {
@@ -44,23 +44,7 @@ class CreateCartValidatorTest extends KernelTestCase
     {
         $valid = true;
         try {
-            $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-            $cartJson = $this->cartEntityToJson->convert($cart);
-            $this->inputValidator->validate($cartJson);
-        } catch (Exception $e) {
-            $valid = false;
-        }
-
-        $this->assertTrue($valid);
-    }
-
-    public function testValidInput_lastModifiedEqualsCreationDate(): void
-    {
-        $valid = true;
-        try {
-            $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-            $cartJson = $this->cartEntityToJson->convert($cart);
-            $cartJson = $this->setLastModifiedEqualsCreationDate($cartJson);
+            $cartJson = $this->getNewCartJson();
             $this->inputValidator->validate($cartJson);
         } catch (Exception $e) {
             $valid = false;
@@ -73,8 +57,7 @@ class CreateCartValidatorTest extends KernelTestCase
     {
         $valid = true;
         try {
-            $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-            $cartJson = $this->cartEntityToJson->convert($cart);
+            $cartJson = $this->getNewCartJson();
             $cartJson = $this->setProductQuantitySameAsStock($cartJson);
             $this->inputValidator->validate($cartJson);
         } catch (Exception $e) {
@@ -84,19 +67,9 @@ class CreateCartValidatorTest extends KernelTestCase
         $this->assertTrue($valid);
     }
 
-    public function testInvalidInput_lastModifiedBeforeCreationDate(): void
-    {
-        $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-        $cartJson = $this->cartEntityToJson->convert($cart);
-        $cartJson = $this->setLastModifiedBeforeCreationDate($cartJson);
-        $this->expectException(InvalidArgumentException::class);
-        $this->inputValidator->validate($cartJson);
-    }
-
     public function testInvalidInput_missingProduct(): void
     {
-        $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-        $cartJson = $this->cartEntityToJson->convert($cart);
+        $cartJson = $this->getNewCartJson();
         $cartJson = $this->setNonExistingProductId($cartJson);
         $this->expectException(ResourceNotFoundException::class);
         $this->inputValidator->validate($cartJson);
@@ -104,19 +77,10 @@ class CreateCartValidatorTest extends KernelTestCase
 
     public function testInvalidInput_notEnoughStock(): void
     {
-        $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-        $cartJson = $this->cartEntityToJson->convert($cart);
+        $cartJson = $this->getNewCartJson();
         $cartJson = $this->setProductQuantityBiggerThanStock($cartJson);
         $this->expectException(InvalidArgumentException::class);
         $this->inputValidator->validate($cartJson);
-    }
-
-    private function setLastModifiedEqualsCreationDate(string $cartJson): string
-    {
-        $cartObject = json_decode($cartJson);
-        $cartObject->lastModified = $cartObject->creationDate;
-
-        return json_encode($cartObject);
     }
 
     private function setProductQuantitySameAsStock(string $cartJson): string
@@ -125,15 +89,6 @@ class CreateCartValidatorTest extends KernelTestCase
         $productId = $cartObject->cartProducts[0]->productId;
         $product = $this->productRepository->find($productId);
         $cartObject->cartProducts[0]->quantity = $product->getStock();
-
-        return json_encode($cartObject);
-    }
-
-    private function setLastModifiedBeforeCreationDate(string $cartJson): string
-    {
-        $cartObject = json_decode($cartJson);
-        $lastModified = new DateTime('yesterday');
-        $cartObject->lastModified = $lastModified->format('d.m.Y H:i:s');
 
         return json_encode($cartObject);
     }
@@ -155,5 +110,51 @@ class CreateCartValidatorTest extends KernelTestCase
         $cartObject->cartProducts[0]->quantity = $product->getStock() + 1;
 
         return json_encode($cartObject);
+    }
+
+    private function getNewCartJson(): string
+    {
+        $newCartObject = $this->getNewEmptyCartObject();
+        $quantity1 = 1;
+        $product1 = $this->fixtures->getProductReference(AppFixtures::PRODUCT1_REFERENCE);
+        $newCartObject->cartProducts[] = $this->getCartProductObject($quantity1, $product1);
+
+        return json_encode($newCartObject);
+    }
+
+    /**
+     * Builds an object for a not yet existing Cart (no id, creationDate, lastModified or cartProducts) with format
+     * expected by the API Request.
+     *
+     * @return object
+     */
+    private function getNewEmptyCartObject(): object
+    {
+        $cartObject = new StdClass();
+        $cartObject->cartProducts = [];
+
+        return $cartObject;
+    }
+
+    /**
+     * Builds an object for a CartProduct based on the quantity and product received as parameters, with format
+     * expected by the API Request.
+     *
+     * @param int $quantity
+     * @param Product $product
+     *
+     * @return object
+     */
+    private function getCartProductObject(int $quantity, Product $product): object
+    {
+        $productObject = new StdClass();
+        $productObject->quantity = $quantity;
+        $productObject->productName = $product->getName();
+        $productObject->productPrice = $product->getPrice();
+        $productObject->productStock = $product->getStock();
+        $productObject->productId = $product->getId();
+        $productObject->cartProductPrice = $quantity*$product->getPrice();
+
+        return $productObject;
     }
 }
