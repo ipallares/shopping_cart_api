@@ -18,6 +18,7 @@ Der andere Branch ist `mvc_approach` und da habe ich den API bis zum Ende implem
 	* Ein Product von einem Cart löschen (wenn man die Anzahl des Produktes verändern, muss man zuerst löschen und danach wieder mit der neue Quantität das Product hinzufügen).
 	* Wenn ich mehr Zeit hätte, würde ich converters von Cart Entity zu Json Object schreiben (erstmal gibt es nur die Umwandlung to Json String und dann muss man das zu Object umwandeln mit `json_decode`).
 * Wäre schön gewesen Integration tests zu schreiben.
+* Im Prinzip sollten Services nicht mehr public sein (das war so, nur weil als ich sie getestet habe, wurden sie noch nicht autowired und so noch nicht zu Verfügung). Davor möchte ich sicher machen, dass das kein Problem verursacht, habe ich aber erstmal leider keine Zeit das richtig zu testen. 
 
 ## Installation
 Einmal man den Repo cloned und `mvc_approach` Branch auschecked, muss man folgende Schritte machen:
