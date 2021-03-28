@@ -177,8 +177,9 @@ class JsonToCartEntityTest extends KernelTestCase
         $productObject->quantity = $quantity;
         $productObject->productName = $product->getName();
         $productObject->productPrice = $product->getPrice();
-        $productObject->prouductStock = $product->getStock();
+        $productObject->productStock = $product->getStock();
         $productObject->productId = $product->getId();
+        $productObject->cartProductPrice = $quantity*$product->getPrice();
 
         return $productObject;
     }
