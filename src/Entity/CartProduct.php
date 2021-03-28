@@ -27,13 +27,13 @@ class CartProduct
 
     /**
      * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="cartProducts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private Cart $cart;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Product::class, cascade={"persist"})
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private Product $product;
 
