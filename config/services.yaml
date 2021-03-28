@@ -32,3 +32,6 @@ services:
 
     App\Logic\Converter\CartEntityToJson:
         public: true
+
+    App\Logic\Converter\JsonToCartEntity:
+        public: true
