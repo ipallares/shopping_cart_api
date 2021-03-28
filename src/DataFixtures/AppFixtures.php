@@ -75,6 +75,8 @@ class AppFixtures extends Fixture
 
         $cart->addCartProduct($cartProduct1);
         $cart->addCartProduct($cartProduct2);
+        $cart->addCartProduct($cartProduct3);
+        $cart->addCartProduct($cartProduct4);
         $manager->persist($cart);
 
         $manager->flush();
