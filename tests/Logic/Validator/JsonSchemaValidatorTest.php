@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\core\application\services\validators;
 
 use App\Logic\Validator\JsonSchemaValidator;
+use App\Tests\Logic\Validator\Traits\JsonValidationMethods;
 use Exception;
 use JsonSchema\Exception\InvalidSchemaException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class JsonSchemaValidatorTest extends KernelTestCase
 {
-    private string $schemaPath;
+    use JsonValidationMethods;
 
+    private string $schemaPath;
     private JsonSchemaValidator $validator;
 
     public function setUp(): void
@@ -131,15 +133,5 @@ class JsonSchemaValidatorTest extends KernelTestCase
         }
 
         $this->assertFalse($exceptionThrown);
-    }
-
-    private function getInputJsonString(): string
-    {
-        return file_get_contents('tests/Logic/Validator/json-examples/valid-cart-api-example-v1.json');
-    }
-
-    private function getInputJsonObject(): object
-    {
-        return json_decode($this->getInputJsonString());
     }
 }
