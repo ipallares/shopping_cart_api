@@ -49,3 +49,6 @@ services:
     App\UseCase\CartCreator:
         public: true
 
+    App\UseCase\CartUpdater:
+        public: true
+
