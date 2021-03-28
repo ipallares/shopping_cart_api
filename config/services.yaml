@@ -52,3 +52,5 @@ services:
     App\UseCase\CartUpdater:
         public: true
 
+    App\Logic\Validator\UpdateCartValidator:
+        public: true
