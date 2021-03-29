@@ -38,10 +38,10 @@ class CartEntityToJson
         $cartProductObject->id = $cartProductEntity->getId();
         $cartProductObject->quantity = $cartProductEntity->getQuantity();
         $cartProductObject->productName = $cartProductEntity->getProductName();
-        $cartProductObject->productPrice = $cartProductEntity->getProductPrice();
+        $cartProductObject->productPrice = $cartProductEntity->getProductPrice() / 100;
         $cartProductObject->productStock = $cartProductEntity->getProductStock();
         $cartProductObject->productId = $cartProductEntity->getProductId();
-        $cartProductObject->cartProductPrice = $cartProductEntity->getCartProductPrice();
+        $cartProductObject->cartProductPrice = $cartProductEntity->getCartProductPrice() / 100;
 
         return $cartProductObject;
     }
