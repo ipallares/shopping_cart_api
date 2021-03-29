@@ -53,7 +53,7 @@
                             },
                             "productPrice": {
                                 "$id": "#/properties/cartProducts/items/anyOf/0/properties/productPrice",
-                                "type": "integer"
+                                "type": "number"
                             },
                             "productStock": {
                                 "$id": "#/properties/cartProducts/items/anyOf/0/properties/productStock",
@@ -65,7 +65,7 @@
                             },
                             "cartProductPrice": {
                                 "$id": "#/properties/cartProducts/items/anyOf/0/properties/cartProductPrice",
-                                "type": "integer"
+                                "type": "number"
                             }
                         },
                         "additionalProperties": false
