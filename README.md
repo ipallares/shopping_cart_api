@@ -41,5 +41,6 @@ composer req --dev symfony/phpunit-bridge
 ```
 Tests funktionieren mit DB `var/data-test.db`
 
-
+## API specs
+Swagger dokumentation für die API kann auf `/api/doc` gefunden werden.
 
