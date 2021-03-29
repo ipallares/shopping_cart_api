@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use JsonSchema\Exception\InvalidSchemaException;
 use JsonSchema\Exception\ResourceNotFoundException;
 use Psr\Log\LoggerInterface;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,41 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     /**
-     * @Route("/v1.0/cart", name="create_cart", methods="POST")
+     * @Route("/api/v1.0/cart", name="create_cart", methods="POST")
+     *
+     * @SWG\Post(
+     *     summary="Creates a Cart, empty or initialized with some CartProducts",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          description="Info for the Cart to be created. May have an emtpy list of CartProducts or some of them to initialize the Cart",
+     *          @SWG\Schema(
+     *              type="object",
+     *              ref="#/definitions/NewCart"
+     *          )
+     *      )
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the Cart info.",
+     *     @SWG\Schema(
+     *         type="object",
+     *         ref="#/definitions/ExistingCart"
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     *     response=422,
+     *     description="Returns status 422 if there is some invalid input data."
+     * )
+     *
+     * @SWG\Response(
+     *     response=500,
+     *     description="Returns status 500 if internal error."
+     * )
      *
      * @param LoggerInterface $logger
      * @param Request $request
@@ -39,6 +74,10 @@ class CartController extends AbstractController
             $logger->error($e->getMessage(), $e->getTrace());
 
             return $this->json([], 422);
+        } catch(ResourceNotFoundException $e) {
+            $logger->error($e->getMessage(), $e->getTrace());
+
+            return $this->json([], 404);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
@@ -47,7 +86,48 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/v1.0/cart", name="update_cart", methods="PUT")
+     * @Route("/api/v1.0/cart", name="update_cart", methods="PUT")
+     *
+     * @SWG\Put(
+     *     summary="Updates a Cart providing a JSON with all its info",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          description="Info for the Cart to be update.",
+     *          @SWG\Schema(
+     *              type="object",
+     *              ref="#/definitions/ExistingCart"
+     *          )
+     *      )
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the Cart info.",
+     *     @SWG\Schema(
+     *         type="object",
+     *         ref="#/definitions/ExistingCart"
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     *     response=422,
+     *     description="Returns status 422 if there is some invalid input data."
+     * )
+     *
+     *
+     * @SWG\Response(
+     *      response=404,
+     *      description="Returns status 404 if there is no Product with received id."
+     * )
+     *
+     * @SWG\Response(
+     *     response=500,
+     *     description="Returns status 500 if internal error."
+     * )
+     *
      *
      * @param LoggerInterface $logger
      * @param Request $request
@@ -79,7 +159,26 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/v1.0/cart/{cartId}", name="get_cart", methods="GET")
+     * @Route("/api/v1.0/cart/{cartId}", name="get_cart", methods="GET")
+     *
+     * @SWG\Get(
+     *     summary="Shows the Cart details",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(name="cartId", in="path", required=true, type="string", description="The id of the Cart to retrieve the CartProducts from."),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Returns the Cart info.",
+     *         @SWG\Schema(
+     *             type="object",
+     *             ref="#/definitions/ExistingCart"
+     *         )
+     *     ),
+     *
+     *     @SWG\Response(
+     *         response=404,
+     *         description="Returns status 404 if there is no CartProduct with given id."
+     *     )
+     * )
      *
      * @param string $cartId
      * @param LoggerInterface $logger
