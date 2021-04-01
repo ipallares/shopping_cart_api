@@ -37,34 +37,14 @@ nelmio_api_doc:
                 description: "Information for a Product in a Cart"
                 type: object
                 properties:
-                    id:
-                        type: string
-                        example: "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
-                        description: "the id of the CartProduct in uuid format"
                     quantity:
                         type: integer
                         example: 3
                         description: "How many of the Product is to be added to the Cart"
-                    productName:
-                        type: string
-                        example: "Samsung Galaxy 8"
-                        description: "The name of the product"
-                    productPrice:
-                        type: number
-                        example: 89.99
-                        description: "The price of the product"
-                    productStock:
-                        type: number
-                        example: 23
-                        description: "How many products are available"
                     productId:
                         type: string
                         example:  "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
                         description: "The id of the Product in uuid format"
-                    cartProductPrice:
-                        type: number
-                        example: 269.97
-                        desctiption: "The price for this CartProduct, obtained by multiplying the quantity by the product price"
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

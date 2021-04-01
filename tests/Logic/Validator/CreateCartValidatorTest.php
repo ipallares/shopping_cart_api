@@ -149,11 +149,7 @@ class CreateCartValidatorTest extends KernelTestCase
     {
         $productObject = new StdClass();
         $productObject->quantity = $quantity;
-        $productObject->productName = $product->getName();
-        $productObject->productPrice = $product->getPrice();
-        $productObject->productStock = $product->getStock();
         $productObject->productId = $product->getId();
-        $productObject->cartProductPrice = $quantity*$product->getPrice();
 
         return $productObject;
     }

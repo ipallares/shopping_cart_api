@@ -1,0 +1,16 @@
+{
+    "cartProducts": [
+        {
+            "quantity": 3,
+            "cartProductPrice": 1199
+        },
+        {
+            "quantity": 1,
+            "cartProductPrice": 2499
+        },
+        {
+            "quantity": 1,
+            "cartProductPrice": 2499
+        }
+    ]
+}
