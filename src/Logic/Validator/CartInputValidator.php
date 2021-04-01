@@ -14,9 +14,9 @@ class CartInputValidator
     protected JsonSchemaValidator $jsonSchemaValidator;
     protected ProductRepository $productRepository;
 
-    public function __construct(string $cartInputSchemaV1, JsonSchemaValidator $jsonSchemaValidator, ProductRepository $productRepository)
+    public function __construct(string $inputSchema, JsonSchemaValidator $jsonSchemaValidator, ProductRepository $productRepository)
     {
-        $this->inputSchema = $cartInputSchemaV1;
+        $this->inputSchema = $inputSchema;
         $this->jsonSchemaValidator = $jsonSchemaValidator;
         $this->productRepository = $productRepository;
     }

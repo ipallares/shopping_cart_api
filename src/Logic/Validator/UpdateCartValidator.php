@@ -12,15 +12,15 @@ use InvalidArgumentException;
 
 class UpdateCartValidator extends CartInputValidator
 {
-    protected CartRepository $cartRepository;
+    private CartRepository $cartRepository;
 
     public function __construct(
-        string $cartInputSchemaV1,
+        string $updateCartInputSchemaV1,
         JsonSchemaValidator $jsonSchemaValidator,
         ProductRepository $productRepository,
         CartRepository $cartRepository
     ) {
-        parent::__construct($cartInputSchemaV1, $jsonSchemaValidator, $productRepository);
+        parent::__construct($updateCartInputSchemaV1, $jsonSchemaValidator, $productRepository);
         $this->cartRepository = $cartRepository;
     }
 
