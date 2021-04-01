@@ -70,9 +70,9 @@ class CartEntityToJsonTest extends KernelTestCase
         $this->assertEquals($cartProductEntity->getQuantity(), $cartProductObject->quantity);
         $this->assertEquals($cartProductEntity->getProductId(), $cartProductObject->productId);
         $this->assertEquals($cartProductEntity->getProductName(), $cartProductObject->productName);
-        $this->assertEquals($cartProductEntity->getProductPrice(), $cartProductObject->productPrice);
+        $this->assertEquals($cartProductEntity->getProductPrice() / 100, $cartProductObject->productPrice);
         $this->assertEquals($cartProductEntity->getProductStock(), $cartProductObject->productStock);
-        $this->assertEquals($cartProductEntity->getCartProductPrice(), $cartProductObject->cartProductPrice);
+        $this->assertEquals($cartProductEntity->getCartProductPrice() / 100, $cartProductObject->cartProductPrice);
     }
 
     /**
