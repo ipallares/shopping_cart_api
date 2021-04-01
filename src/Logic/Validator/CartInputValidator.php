@@ -37,7 +37,7 @@ class CartInputValidator
     protected function productExist(string $productId): void
     {
         if (null == $this->productRepository->find($productId)) {
-            throw new ResourceNotFoundException("Product#$productId");
+            throw new ResourceNotFoundException("Product#$productId doesn't exist");
         }
     }
 

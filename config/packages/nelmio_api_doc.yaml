@@ -5,7 +5,7 @@ nelmio_api_doc:
             description: Basic management of an online shoppping Cart
             version: 1.0.0
         definitions:
-            ExistingCart:
+            ExistingCartRequest:
                 description: "Body for Carts already existing, either when we query them (GET) or when we wanna update them (PUT)."
                 type: object
                 properties:
@@ -16,27 +16,79 @@ nelmio_api_doc:
                     cartProducts:
                         type: array
                         items:
-                            $ref: "#/definitions/CartProduct"
-            NewCart:
+                            $ref: "#/definitions/CartProductRequest"
+            NewCartRequest:
                 description: "Body for a Cart to be created. As such doesn't contain any id and may or may not include CartProducts."
                 type: object
                 properties:
                     cartProducts:
                         type: array
                         items:
-                            $ref: "#/definitions/CartProduct"
-            CartProduct:
-                description: "Information for a Product in a Cart. To test it make sure the productId exists in the DB."
+                            $ref: "#/definitions/CartProductRequest"
+            CartProductRequest:
+                description: "Schema needed for Requests including Cart Product/s. To test it make sure the productId exists in the DB."
                 type: object
                 properties:
                     quantity:
                         type: integer
                         example: 3
-                        description: "How many of the Product is to be added to the Cart"
+                        description: "How many units of the Product are to be added to the Cart"
                     productId:
                         type: string
                         example:  "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
                         description: "The id for an existing Product in uuid format."
+            CartResponse:
+                description: "Schema shown in Response body for a Cart"
+                type: object
+                properties:
+                    id:
+                        type: string
+                        example: "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
+                        description: "Uuid format"
+                    creationDate:
+                        type: string
+                        example: "29.03.2021 00:00:00"
+                        description: "Date when the Cart was first created, in 'd.m.Y H:i:s' format"
+                    lastModified:
+                        type: string
+                        example: "29.03.2021 00:00:00"
+                        description: "Date when the Cart was last modified, in 'd.m.Y H:i:s' format"
+                    cartProducts:
+                        type: array
+                        items:
+                            $ref: "#/definitions/CartProductResponse"
+            CartProductResponse:
+                description: "Schema for Cart Info in a Response object."
+                type: object
+                properties:
+                    id:
+                        type: string
+                        example: "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
+                        description: "the id of the CartProduct in uuid format"
+                    quantity:
+                        type: integer
+                        example: 3
+                        description: "How many units of the Product are to be added to the Cart"
+                    productName:
+                        type: string
+                        example: "Samsung Galaxy 8"
+                        description: "The name of the product"
+                    productPrice:
+                        type: number
+                        example: 89.99
+                        description: "The price of the product"
+                    productStock:
+                        type: number
+                        example: 23
+                        description: "How many products are available"
+                    productId:
+                        type: string
+                        example:  "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
+                        description: "The id of the Product in uuid format"
+                    cartProductPrice:
+                        type: number
+                        example: 269.97
+                        desctiption: "The price for this CartProduct, obtained by multiplying the quantity by the product price"
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

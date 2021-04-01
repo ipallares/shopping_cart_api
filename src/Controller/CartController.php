@@ -31,7 +31,7 @@ class CartController extends AbstractController
      *          description="Info for the Cart to be created. May have an emtpy list of CartProducts or some of them to initialize the Cart",
      *          @SWG\Schema(
      *              type="object",
-     *              ref="#/definitions/NewCart"
+     *              ref="#/definitions/NewCartRequest"
      *          )
      *      )
      * )
@@ -41,7 +41,7 @@ class CartController extends AbstractController
      *     description="Returns the Cart info.",
      *     @SWG\Schema(
      *         type="object",
-     *         ref="#/definitions/ExistingCart"
+     *         ref="#/definitions/CartResponse"
      *     )
      * )
      *
@@ -73,15 +73,15 @@ class CartController extends AbstractController
         } catch(InvalidSchemaException | InvalidArgumentException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 422);
+            return $this->json(['error' => $e->getMessage()], 422);
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 404);
+            return $this->json(['error' => $e->getMessage()], 404);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 500);
+            return $this->json(['error' => $e->getMessage()], 500);
         }
     }
 
@@ -98,7 +98,7 @@ class CartController extends AbstractController
      *          description="Info for the Cart to be update.",
      *          @SWG\Schema(
      *              type="object",
-     *              ref="#/definitions/ExistingCart"
+     *              ref="#/definitions/ExistingCartRequest"
      *          )
      *      )
      * )
@@ -108,7 +108,7 @@ class CartController extends AbstractController
      *     description="Returns the Cart info.",
      *     @SWG\Schema(
      *         type="object",
-     *         ref="#/definitions/ExistingCart"
+     *         ref="#/definitions/CartResponse"
      *     )
      * )
      *
@@ -146,15 +146,15 @@ class CartController extends AbstractController
         } catch(InvalidSchemaException | InvalidArgumentException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 422);
+            return $this->json(['error' => $e->getMessage()], 422);
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 404);
+            return $this->json(['error' => $e->getMessage()], 404);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 500);
+            return $this->json(['error' => $e->getMessage()], 500);
         }
     }
 
@@ -170,7 +170,7 @@ class CartController extends AbstractController
      *         description="Returns the Cart info.",
      *         @SWG\Schema(
      *             type="object",
-     *             ref="#/definitions/ExistingCart"
+     *             ref="#/definitions/CartResponse"
      *         )
      *     ),
      *
@@ -197,11 +197,11 @@ class CartController extends AbstractController
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 404);
+            return $this->json(['error' => $e->getMessage()], 404);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 500);
+            return $this->json(['error' => $e->getMessage()], 500);
         }
     }
 }

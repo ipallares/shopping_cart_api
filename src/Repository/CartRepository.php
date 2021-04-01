@@ -47,7 +47,7 @@ class CartRepository extends ServiceEntityRepository
     {
         $cart = $this->find($id);
         if (null === $cart) {
-            throw new ResourceNotFoundException("No Cart with id: $id");
+            throw new ResourceNotFoundException("Cart#$id doesn't exist");
         }
 
         return $cart;

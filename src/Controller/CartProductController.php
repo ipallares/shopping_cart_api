@@ -103,7 +103,7 @@ class CartProductController extends AbstractController
      *         description="Adds the Product to the Cart.",
      *         @SWG\Schema(
      *             type="object",
-     *             ref="#/definitions/ExistingCart"
+     *             ref="#/definitions/ExistingCartRequest"
      *         )
      *     ),
      *     @SWG\Response(
@@ -175,7 +175,7 @@ class CartProductController extends AbstractController
      *     description="Returns the Cart info.",
      *     @SWG\Schema(
      *         type="object",
-     *         ref="#/definitions/ExistingCart"
+     *         ref="#/definitions/ExistingCartRequest"
      *     )
      * )
      * @SWG\Response(
