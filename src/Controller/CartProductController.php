@@ -62,11 +62,11 @@ class CartProductController extends AbstractController
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 404);
+            return $this->json(['error' => $e->getMessage()], 404);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 500);
+            return $this->json(['error' => $e->getMessage()], 500);
         }
     }
 
@@ -145,19 +145,20 @@ class CartProductController extends AbstractController
             );
 
             $cart = json_decode($cartGetter->get($cartId));
+
             return $this->json($cart, 200);
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 404);
+            return $this->json(['error' => $e->getMessage()], 404);
         } catch(InvalidSchemaException | InvalidArgumentException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 422);
+            return $this->json(['error' => $e->getMessage()], 422);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 500);
+            return $this->json(['error' => $e->getMessage()], 500);
         }
     }
 
@@ -205,11 +206,11 @@ class CartProductController extends AbstractController
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 404);
+            return $this->json(['error' => $e->getMessage()], 404);
         } catch(Exception $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
-            return $this->json([], 500);
+            return $this->json(['error' => $e->getMessage()], 500);
         }
     }
 
