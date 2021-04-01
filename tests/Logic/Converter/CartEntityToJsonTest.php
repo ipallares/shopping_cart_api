@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Logic\Converter;
 
 use App\DataFixtures\AppFixtures;
+use App\Entity\Cart;
 use App\Entity\CartProduct;
 use App\Logic\Converter\CartEntityToJson;
 use Doctrine\Common\Collections\Collection;
@@ -41,8 +42,23 @@ class CartEntityToJsonTest extends KernelTestCase
         $this->assertEquals($cart->getId(), $jsonObject->id);
         $this->assertEquals($cart->getCreationDate()->format('d.m.Y H:i:s'), $jsonObject->creationDate);
         $this->assertEquals($cart->getLastModified()->format('d.m.Y H:i:s'), $jsonObject->lastModified);
-        $this->assertEquals($cart->getId(), $jsonObject->id);
+        $this->assertEquals($this->getCartPrice($cart), $jsonObject->cartPrice);
         $this->assertAllCartProductsEquals($cart->getCartProducts(), $jsonObject->cartProducts);
+    }
+
+    /**
+     * @param Cart $cart
+     *
+     * @return int
+     */
+    private function getCartPrice(Cart $cart)
+    {
+        $price = 0;
+        foreach($cart->getCartProducts() as $cartProduct) {
+            $price += $cartProduct->getCartProductPrice();
+        }
+
+        return $price;
     }
 
     /**

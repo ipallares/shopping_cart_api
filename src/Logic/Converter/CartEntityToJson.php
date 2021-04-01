@@ -17,6 +17,7 @@ class CartEntityToJson
         $cartObject->id = $cartEntity->getId();
         $cartObject->creationDate = $cartEntity->getCreationDate()->format('d.m.Y H:i:s');
         $cartObject->lastModified = $cartEntity->getLastModified()->format('d.m.Y H:i:s');
+        $cartObject->cartPrice = $this->getCartPrice($cartEntity);
         $cartObject->cartProducts = $this->convertCartProducts($cartEntity->getCartProducts());
 
         return json_encode($cartObject);
@@ -44,5 +45,15 @@ class CartEntityToJson
         $cartProductObject->cartProductPrice = $cartProductEntity->getCartProductPrice() / 100;
 
         return $cartProductObject;
+    }
+
+    private function getCartPrice(Cart $cartEntity): float
+    {
+        $price = 0;
+        foreach($cartEntity->getCartProducts() as $cartProduct) {
+            $price += $cartProduct->getCartProductPrice();
+        }
+
+        return $price;
     }
 }
