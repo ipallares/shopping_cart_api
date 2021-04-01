@@ -1,34 +1,17 @@
 {
     "id": "B30EC520-659A-4281-A5F4-2226DF88EC94",
-    "creationDate": "27.03.2021 22:12:05",
-    "lastModified": "27.03.2021 22:12:05",
     "cartProducts": [
         {
-            "id": "237705C4-CE7A-4D0B-BEE4-0EAA7F969241",
             "quantity": 3,
-            "productName": "Product1",
-            "productPrice": 1199,
-            "productStock": 200,
-            "productId": "0AF60D38-1916-4142-9CCE-1DDFBC4EC178",
-            "cartProductPrice": 1199
+            "productId": "0AF60D38-1916-4142-9CCE-1DDFBC4EC178"
         },
         {
-            "id": "B30EC520-659A-4281-A5F4-2226DF88EC94",
             "quantity": 1,
-            "productName": "Product2",
-            "productPrice": 2499,
-            "productStock": 10,
-            "productId": "CCECBB9E-7F97-48B0-B553-D221671EC131",
-            "cartProductPrice": 2499
+            "productId": "CCECBB9E-7F97-48B0-B553-D221671EC131"
         },
         {
-            "id": "B30EC520-659A-4281-A5F4-2226DF88EC94",
             "quantity": 1,
-            "productName": "Product2",
-            "productPrice": 2499,
-            "productStock": 10,
-            "productId": "CCECBB9E-7F97-48B0-B553-D221671EC131",
-            "cartProductPrice": 2499
+            "productId": "CCECBB9E-7F97-48B0-B553-D221671EC131"
         }
     ]
 }

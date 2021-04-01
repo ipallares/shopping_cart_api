@@ -141,8 +141,6 @@ class JsonToCartEntityTest extends KernelTestCase
     {
         $cartObject = new StdClass();
         $cartObject->id = $cart->getId();
-        $cartObject->creationDate = $cart->getCreationDate();
-        $cartObject->lastModified = $cart->getLastModified();
         $cartObject->cartProducts = [];
 
         return $cartObject;
@@ -175,11 +173,7 @@ class JsonToCartEntityTest extends KernelTestCase
     {
         $productObject = new StdClass();
         $productObject->quantity = $quantity;
-        $productObject->productName = $product->getName();
-        $productObject->productPrice = $product->getPrice();
-        $productObject->productStock = $product->getStock();
         $productObject->productId = $product->getId();
-        $productObject->cartProductPrice = $quantity*$product->getPrice();
 
         return $productObject;
     }

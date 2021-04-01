@@ -12,14 +12,6 @@
             "type": "string",
             "title": "The id schema"
         },
-        "creationDate": {
-            "$id": "#/properties/creationDate",
-            "type": "string"
-        },
-        "lastModified": {
-            "$id": "#/properties/lastModified",
-            "type": "string"
-        },
         "cartProducts": {
             "$id": "#/properties/cartProducts",
             "type": "array",
@@ -32,47 +24,23 @@
                         "type": "object",
                         "required": [
                             "quantity",
-                            "productName",
-                            "productPrice",
-                            "productStock",
-                            "productId",
-                            "cartProductPrice"
+                            "productId"
                         ],
                         "properties": {
-                            "id": {
-                                "$id": "#/properties/cartProducts/items/anyOf/0/properties/id",
-                                "type": "string"
-                            },
                             "quantity": {
                                 "$id": "#/properties/cartProducts/items/anyOf/0/properties/quantity",
-                                "type": "integer"
-                            },
-                            "productName": {
-                                "$id": "#/properties/cartProducts/items/anyOf/0/properties/productName",
-                                "type": "string"
-                            },
-                            "productPrice": {
-                                "$id": "#/properties/cartProducts/items/anyOf/0/properties/productPrice",
-                                "type": "number"
-                            },
-                            "productStock": {
-                                "$id": "#/properties/cartProducts/items/anyOf/0/properties/productStock",
                                 "type": "integer"
                             },
                             "productId": {
                                 "$id": "#/properties/cartProducts/items/anyOf/0/properties/productId",
                                 "type": "string"
-                            },
-                            "cartProductPrice": {
-                                "$id": "#/properties/cartProducts/items/anyOf/0/properties/cartProductPrice",
-                                "type": "number"
                             }
                         },
-                        "additionalProperties": false
+                        "additionalProperties": true
                     }
                 ]
             }
         }
     },
-    "additionalProperties": false
+    "additionalProperties": true
 }

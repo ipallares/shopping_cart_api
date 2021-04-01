@@ -12,21 +12,13 @@ nelmio_api_doc:
                     id:
                         type: string
                         example: "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
-                        description: "Uuid format"
-                    creationDate:
-                        type: string
-                        example: "29.03.2021 00:00:00"
-                        description: "Date when the Cart was first created, in 'd.m.Y H:i:s' format"
-                    lastModified:
-                        type: string
-                        example: "29.03.2021 00:00:00"
-                        description: "Date when the Cart was last modified, in 'd.m.Y H:i:s' format"
+                        description: "Uuid for an existing Cart"
                     cartProducts:
                         type: array
                         items:
                             $ref: "#/definitions/CartProduct"
             NewCart:
-                description: "Body for a Cart to be created. As such doesn't contain any id, createdDate or lastModified and may or may not include CartProducts."
+                description: "Body for a Cart to be created. As such doesn't contain any id and may or may not include CartProducts."
                 type: object
                 properties:
                     cartProducts:
@@ -34,7 +26,7 @@ nelmio_api_doc:
                         items:
                             $ref: "#/definitions/CartProduct"
             CartProduct:
-                description: "Information for a Product in a Cart"
+                description: "Information for a Product in a Cart. To test it make sure the productId exists in the DB."
                 type: object
                 properties:
                     quantity:
@@ -44,7 +36,7 @@ nelmio_api_doc:
                     productId:
                         type: string
                         example:  "2FBF3B2C-7D90-4CF6-80AE-CF924C046C0F"
-                        description: "The id of the Product in uuid format"
+                        description: "The id for an existing Product in uuid format."
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

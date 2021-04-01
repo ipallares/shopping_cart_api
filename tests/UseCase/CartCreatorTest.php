@@ -99,8 +99,7 @@ class CartCreatorTest extends KernelTestCase
     }
 
     /**
-     * Builds an object for a not yet existing Cart (no id, creationDate, lastModified or cartProducts) with format
-     * expected by the API Request.
+     * Builds an object for a not yet existing Cart with format expected by the API Request.
      *
      * @return object
      */

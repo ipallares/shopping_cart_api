@@ -55,21 +55,6 @@ class UpdateCartValidatorTest extends KernelTestCase
         $this->assertTrue($valid);
     }
 
-    public function testValidInput_lastModifiedEqualsCreationDate(): void
-    {
-        $valid = true;
-        try {
-            $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-            $cartJson = $this->cartEntityToJson->convert($cart);
-            $cartJson = $this->setLastModifiedEqualsCreationDate($cartJson);
-            $this->validator->validate($cartJson);
-        } catch (Exception $e) {
-            $valid = false;
-        }
-
-        $this->assertTrue($valid);
-    }
-
     public function testValidInput_productQuantityEqualsStock(): void
     {
         $valid = true;
@@ -93,15 +78,6 @@ class UpdateCartValidatorTest extends KernelTestCase
         $this->validator->validate(json_encode($jsonObject));
     }
 
-    public function testInvalidInput_lastModifiedBeforeCreationDate(): void
-    {
-        $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-        $cartJson = $this->cartEntityToJson->convert($cart);
-        $cartJson = $this->setLastModifiedBeforeCreationDate($cartJson);
-        $this->expectException(InvalidArgumentException::class);
-        $this->validator->validate($cartJson);
-    }
-
     public function testInvalidInput_missingProduct(): void
     {
         $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
@@ -120,29 +96,12 @@ class UpdateCartValidatorTest extends KernelTestCase
         $this->validator->validate($cartJson);
     }
 
-    private function setLastModifiedEqualsCreationDate(string $cartJson): string
-    {
-        $cartObject = json_decode($cartJson);
-        $cartObject->lastModified = $cartObject->creationDate;
-
-        return json_encode($cartObject);
-    }
-
     private function setProductQuantitySameAsStock(string $cartJson): string
     {
         $cartObject = json_decode($cartJson);
         $productId = $cartObject->cartProducts[0]->productId;
         $product = $this->productRepository->find($productId);
         $cartObject->cartProducts[0]->quantity = $product->getStock();
-
-        return json_encode($cartObject);
-    }
-
-    private function setLastModifiedBeforeCreationDate(string $cartJson): string
-    {
-        $cartObject = json_decode($cartJson);
-        $lastModified = new DateTime('yesterday');
-        $cartObject->lastModified = $lastModified->format('d.m.Y H:i:s');
 
         return json_encode($cartObject);
     }

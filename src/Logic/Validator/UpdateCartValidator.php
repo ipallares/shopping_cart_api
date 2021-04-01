@@ -36,7 +36,6 @@ class UpdateCartValidator extends CartInputValidator
 
         $this->cartIdExists($jsonObject);
         $this->cartExists($jsonObject->id);
-        $this->lastModifiedEqualOrAfterCreationDate($jsonObject);
         $this->allProductsExist($jsonObject);
         $this->allProductsHaveEnoughStock($jsonObject);
     }
