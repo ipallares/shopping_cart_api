@@ -12,6 +12,7 @@ use Doctrine\Persistence\ObjectManager;
 class AppFixtures extends Fixture
 {
     public const CART_REFERENCE = 'cart';
+    const CART_EMPTY_REFERENCE = 'emptyCart';
 
     public const CART_PRODUCT1_REFERENCE = 'cartProduct1';
     public const CART_PRODUCT2_REFERENCE = 'cartProduct2';
@@ -32,6 +33,10 @@ class AppFixtures extends Fixture
         $cart = new Cart();
         $this->addReference(self::CART_REFERENCE, $cart);
         $manager->persist($cart);
+
+        $emptyCart = new Cart();
+        $this->addReference(self::CART_EMPTY_REFERENCE, $emptyCart);
+        $manager->persist($emptyCart);
 
         $product1 = new Product('Product1', 1199, 200);
         $this->addReference(self::PRODUCT1_REFERENCE, $product1);
