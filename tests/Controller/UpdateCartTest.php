@@ -42,8 +42,6 @@ class UpdateCartTest extends WebTestCase
 
     public function testUpdateCart_withOneProduct(): void
     {
-        $this->loadFixtures([AppFixtures::class]);
-        $this->fixtures = self::$container->get(AppFixtures::class);
         $this->client->request('PUT', '/api/v1.0/cart', [], [], [], $this->getRequestBodyContent_cartWithOneProduct());
         $this->assertResponseIsSuccessful();
 

@@ -15,6 +15,13 @@ class CreateCartTest extends WebTestCase
 {
     private KernelBrowser $client;
 
+    use FixturesTrait;
+    use AssertCartResponseContent;
+
+    private const PRODUCT_QUANTITY = 2;
+
+    private AppFixtures $fixtures;
+
     protected function setUp(): void
     {
         $this->client = static::createClient();
@@ -22,13 +29,6 @@ class CreateCartTest extends WebTestCase
         $this->fixtures = self::$container->get(AppFixtures::class);
         parent::setUp();
     }
-
-    use FixturesTrait;
-    use AssertCartResponseContent;
-
-    private const PRODUCT_QUANTITY = 2;
-
-    private AppFixtures $fixtures;
 
     public function testCreateCart_noProducts(): void
     {
@@ -44,8 +44,6 @@ class CreateCartTest extends WebTestCase
 
     public function testCreateCart_withOneProduct(): void
     {
-//        $this->loadFixtures([AppFixtures::class]);
-//        $this->fixtures = self::$container->get(AppFixtures::class);
         $this->client->request('POST', '/api/v1.0/cart', [], [], [], $this->getRequestBodyContent_cartWithOneProduct());
         $this->assertResponseIsSuccessful();
 
