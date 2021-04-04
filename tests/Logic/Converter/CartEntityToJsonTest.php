@@ -21,7 +21,6 @@ class CartEntityToJsonTest extends KernelTestCase
     private EntityManagerInterface $manager;
     private CartEntityToJson $cartEntityToJson;
 
-
     public function setUp(): void
     {
         parent::setUp();
@@ -58,7 +57,7 @@ class CartEntityToJsonTest extends KernelTestCase
             $price += $cartProduct->getCartProductPrice();
         }
 
-        return $price;
+        return $price / 100;
     }
 
     /**
