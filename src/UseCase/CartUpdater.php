@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase;
 
-use App\Logic\Converter\CartEntityToJson;
+use App\Logic\Converter\CartEntityToJsonObject;
 use App\Logic\Converter\JsonToCartEntity;
 use App\Logic\Validator\UpdateCartValidator;
 use App\Repository\CartRepository;
@@ -19,24 +19,24 @@ class CartUpdater
     private CartRepository $cartRepository;
     private UpdateCartValidator $validator;
     private JsonToCartEntity $jsonToCartEntity;
-    private CartEntityToJson $cartEntityToJson;
+    private CartEntityToJsonObject $cartEntityToJsonObject;
 
     public function __construct(
         CartRepository $cartRepository,
         UpdateCartValidator $validator,
         JsonToCartEntity $jsonToCartEntity,
-        CartEntityToJson $cartEntityToJson)
+        CartEntityToJsonObject $cartEntityToJsonObject)
     {
         $this->cartRepository = $cartRepository;
         $this->validator = $validator;
         $this->jsonToCartEntity = $jsonToCartEntity;
-        $this->cartEntityToJson = $cartEntityToJson;
+        $this->cartEntityToJsonObject = $cartEntityToJsonObject;
     }
 
     /**
      * @param string $cartJson
      *
-     * @return string
+     * @return object
      *
      * @throws ORMException
      * @throws InvalidArgumentException
@@ -44,12 +44,12 @@ class CartUpdater
      * @throws ResourceNotFoundException
      * @throws Exception
      */
-    public function update(string $cartJson): string
+    public function update(string $cartJson): object
     {
         $this->validator->validate($cartJson);
         $cart = $this->jsonToCartEntity->convert($cartJson);
         $this->cartRepository->save($cart);
 
-        return $this->cartEntityToJson->convert($cart);
+        return $this->cartEntityToJsonObject->convert($cart);
     }
 }

@@ -7,6 +7,8 @@ namespace App\UseCase\CartProduct;
 use App\Entity\Cart;
 use App\Entity\CartProduct;
 use App\Entity\Product;
+use App\Logic\Converter\CartEntityToJsonObject;
+use App\Logic\Validator\CartProduct\CreateCartProductValidator;
 use App\Repository\CartProductRepository;
 use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
@@ -18,12 +20,24 @@ class CartProductCreator
     private CartProductRepository $cartProductRepository;
     private ProductRepository $productRepository;
     private CartRepository $cartRepository;
+    private CreateCartProductValidator $createCartProductValidator;
+    /**
+     * @var CartEntityToJsonObject
+     */
+    private CartEntityToJsonObject $cartEntityToJsonObject;
 
-    public function __construct(CartProductRepository $cartProductRepository, ProductRepository $productRepository, CartRepository $cartRepository)
-    {
+    public function __construct(
+        CartProductRepository $cartProductRepository,
+        ProductRepository $productRepository,
+        CartRepository $cartRepository,
+        CartEntityToJsonObject $cartEntityToJsonObject,
+        CreateCartProductValidator $createCartProductValidator
+    ) {
         $this->cartProductRepository = $cartProductRepository;
         $this->productRepository = $productRepository;
         $this->cartRepository = $cartRepository;
+        $this->cartEntityToJsonObject = $cartEntityToJsonObject;
+        $this->createCartProductValidator = $createCartProductValidator;
     }
 
     /**
@@ -31,13 +45,16 @@ class CartProductCreator
      * @param string $cartId
      * @param string $productId
      *
+     * @return object
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function create(int $quantity, string $cartId, string $productId)
+    public function create(int $quantity, string $cartId, string $productId): object
     {
-        $cart = $this->cartRepository->findWithCertainty($cartId);
-        $product = $this->productRepository->findWithCertainty($productId);
+        $this->createCartProductValidator->validate($quantity, $cartId, $productId);
+        $cart = $this->cartRepository->find($cartId);
+        $product = $this->productRepository->find($productId);
         $existingCartProduct = $this->getProductFromCart($cart, $productId);
 
         if (null === $existingCartProduct) {
@@ -45,6 +62,8 @@ class CartProductCreator
         } else {
             $this->mergeWithExistingCartProduct($quantity, $cart, $product, $existingCartProduct);
         }
+
+        return $this->cartEntityToJsonObject->convert($cart);
     }
 
     /**

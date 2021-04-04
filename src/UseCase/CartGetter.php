@@ -4,26 +4,31 @@ declare(strict_types=1);
 
 namespace App\UseCase;
 
-use App\Logic\Converter\CartEntityToJson;
+use App\Logic\Converter\CartEntityToJsonObject;
 use App\Repository\CartRepository;
 
 class CartGetter
 {
     private CartRepository $cartRepository;
-    private CartEntityToJson $cartEntityToJson;
+    private CartEntityToJsonObject $cartEntityToJsonObject;
 
     public function __construct(
         CartRepository $cartRepository,
-        CartEntityToJson $cartEntityToJson)
+        CartEntityToJsonObject $cartEntityToJsonObject)
     {
         $this->cartRepository = $cartRepository;
-        $this->cartEntityToJson = $cartEntityToJson;
+        $this->cartEntityToJsonObject = $cartEntityToJsonObject;
     }
 
-    public function get(string $id): string
+    /**
+     * @param string $id
+     *
+     * @return object
+     */
+    public function get(string $id): object
     {
         $cart = $this->cartRepository->findWithCertainty($id);
 
-        return $this->cartEntityToJson->convert($cart);
+        return $this->cartEntityToJsonObject->convert($cart);
     }
 }

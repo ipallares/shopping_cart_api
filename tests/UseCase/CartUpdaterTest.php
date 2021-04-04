@@ -52,8 +52,7 @@ class CartUpdaterTest extends KernelTestCase
         $product5 = $this->fixtures->getProductReference(AppFixtures::PRODUCT5_REFERENCE);
         $cartObject->cartProducts[] = $this->getCartProductObject($quantity, $product5);
 
-        $savedCartJson = $this->cartUpdater->update(json_encode($cartObject));
-        $savedCartObject = json_decode($savedCartJson);
+        $savedCartObject = $this->cartUpdater->update(json_encode($cartObject));
         $updatedCart = $this->cartRepository->findWithCertainty($savedCartObject->id);
 
         $this->assertEquals(
@@ -77,8 +76,7 @@ class CartUpdaterTest extends KernelTestCase
         $this->assertEquals($initialNumberProducts - 1, $cart->getNumberOfProducts());
 
         $cartJson = $this->cartEntityToJson->convert($cart);
-        $savedCartJson = $this->cartUpdater->update($cartJson);
-        $savedCartObject = json_decode($savedCartJson);
+        $savedCartObject = $this->cartUpdater->update($cartJson);
         $updatedCart = $this->cartRepository->findWithCertainty($savedCartObject->id);
 
         $this->assertEquals(
@@ -94,8 +92,7 @@ class CartUpdaterTest extends KernelTestCase
         $this->assertEquals(0, $cart->getNumberOfProducts());
 
         $cartJson = $this->cartEntityToJson->convert($cart);
-        $savedCartJson = $this->cartUpdater->update($cartJson);
-        $savedCartObject = json_decode($savedCartJson);
+        $savedCartObject = $this->cartUpdater->update($cartJson);
         $updatedCart = $this->cartRepository->findWithCertainty($savedCartObject->id);
 
         $this->assertEquals(0, $updatedCart->getNumberOfProducts());

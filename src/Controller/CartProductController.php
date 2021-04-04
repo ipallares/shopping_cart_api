@@ -45,7 +45,8 @@ class CartProductController extends AbstractController
      * @param string $cartId
      * @param string $cartProductId
      * @param LoggerInterface $logger
-     * @param CartProductDeleter $cartDeleter
+     * @param CartGetter $cartGetter
+     * @param CartProductDeleter $cartProductDeleter
      *
      * @return JsonResponse
      */
@@ -53,12 +54,13 @@ class CartProductController extends AbstractController
         string $cartId,
         string $cartProductId,
         LoggerInterface $logger,
-        CartProductDeleter $cartDeleter
+        CartGetter $cartGetter,
+        CartProductDeleter $cartProductDeleter
     ): JsonResponse {
         try {
-            $cartDeleter->delete($cartProductId);
+            $cart = $cartProductDeleter->delete($cartProductId);
 
-            return $this->json([], 200);
+            return $this->json($cart, 200);
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 
@@ -125,26 +127,21 @@ class CartProductController extends AbstractController
      * @param LoggerInterface $logger
      * @param CartProductCreator $cartProductCreator
      *
-     * @param CartGetter $cartGetter
-     *
      * @return JsonResponse
      */
     public function createAction(
         Request $request,
         string $cartId,
         LoggerInterface $logger,
-        CartProductCreator $cartProductCreator,
-        CartGetter $cartGetter
+        CartProductCreator $cartProductCreator
     ): JsonResponse {
         try {
             $this->validateCreateCartProductInput($request);
-            $cartProductCreator->create(
+            $cart = $cartProductCreator->create(
                 $this->getPostParameter($request, 'quantity'),
                 $cartId,
                 $this->getPostParameter($request, 'productId')
             );
-
-            $cart = json_decode($cartGetter->get($cartId));
 
             return $this->json($cart, 200);
         } catch(ResourceNotFoundException $e) {
@@ -200,9 +197,9 @@ class CartProductController extends AbstractController
         CartGetter $cartGetter
     ): JsonResponse {
         try {
-            $cartJson = json_decode($cartGetter->get($cartId));
+            $cart = $cartGetter->get($cartId);
 
-            return $this->json($cartJson, 200);
+            return $this->json($cart, 200);
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
 

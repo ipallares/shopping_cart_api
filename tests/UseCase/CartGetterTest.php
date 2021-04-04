@@ -33,8 +33,7 @@ class CartGetterTest extends KernelTestCase
     public function testGet_existingCart(): void
     {
         $cart = $this->fixtures->getCartReference(AppFixtures::CART_REFERENCE);
-        $cartFoundJson = $this->cartGetter->get($cart->getId());
-        $cartFoundObject = json_decode($cartFoundJson);
+        $cartFoundObject = $this->cartGetter->get($cart->getId());
 
         $this->assertEquals($cart->getId(), $cartFoundObject->id);
         $this->assertEquals($cart->getNumberOfProducts(), count($cartFoundObject->cartProducts));

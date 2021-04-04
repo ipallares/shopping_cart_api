@@ -67,8 +67,8 @@ class CartController extends AbstractController
         CartCreator $cartCreator
     ): JsonResponse {
         try {
-            // IPT: TODO: A converter to jsonObject should be implemented and used to avoid having to manipulate it here.
-            $cart = json_decode($cartCreator->create($request->getContent()));
+            $cart = $cartCreator->create($request->getContent());
+
             return $this->json($cart, 200);
         } catch(InvalidSchemaException | InvalidArgumentException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
@@ -141,7 +141,8 @@ class CartController extends AbstractController
         CartUpdater $cartUpdater
     ): JsonResponse {
         try {
-            $cartJson = json_decode($cartUpdater->update($request->getContent()));
+            $cartJson = $cartUpdater->update($request->getContent());
+
             return $this->json($cartJson, 200);
         } catch(InvalidSchemaException | InvalidArgumentException $e) {
             $logger->error($e->getMessage(), $e->getTrace());
@@ -192,7 +193,8 @@ class CartController extends AbstractController
         CartGetter $cartGetter): JsonResponse
     {
         try {
-            $cartJson = json_decode($cartGetter->get($cartId));
+            $cartJson = $cartGetter->get($cartId);
+
             return $this->json($cartJson, 200);
         } catch(ResourceNotFoundException $e) {
             $logger->error($e->getMessage(), $e->getTrace());

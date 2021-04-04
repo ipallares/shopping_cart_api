@@ -46,8 +46,7 @@ class CartCreatorTest extends KernelTestCase
         $quantity = 1;
         $product1 = $this->fixtures->getProductReference(AppFixtures::PRODUCT1_REFERENCE);
         $newCartObject->cartProducts[] = $this->getCartProductObject($quantity, $product1);
-        $savedCartJson = $this->cartCreator->create(json_encode($newCartObject));
-        $savedCartObject = json_decode($savedCartJson);
+        $savedCartObject = $this->cartCreator->create(json_encode($newCartObject));
 
         $this->assertCartCreated($savedCartObject);
         $this->assertExpectedCartProduct($savedCartObject->id, $quantity, $product1);
